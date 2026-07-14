@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="午月 AFTER MOON 咖啡廳包場方案簡報:客單價推算、兩大收費方案比較、營運巧思與初期策略。">
+<title>午月 AFTER MOON — 包場方案簡報</title>
+<style>
+  :root {
+    /* ---- moonlit light ground ---- */
+    --paper:      #F0F1EA;
+    --paper-2:    #E8EAE0;
+    --card:       #F7F8F2;
+    --ink:        #262330;
+    --ink-soft:   #565261;
+    --ink-faint:  #8C8996;
+    --line:       #D6D7CC;
+    --line-soft:  #E1E2D8;
+    --matcha:     #5E7350;
+    --matcha-deep:#425335;
+    --matcha-wash:#E5EADE;
+    --honey:      #A9772F;
+    --honey-wash: #EFE3CE;
+    --moon-1:     #FCFCF6;
+    --moon-2:     #E9EBDD;
+    --moon-glow:  rgba(150,168,130,.28);
+    --shadow:     0 1px 2px rgba(38,35,48,.05), 0 14px 40px -18px rgba(38,35,48,.22);
+
+    --font-cjk: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", "Heiti TC", sans-serif;
+    --font-serif: Georgia, "Times New Roman", serif;
+    --font-sans: "Segoe UI", system-ui, sans-serif;
+
+    --edge: clamp(20px, 6vw, 96px);
+    --maxw: 1160px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper:      #1B1922;
+      --paper-2:    #201E29;
+      --card:       #26232F;
+      --ink:        #ECEAE2;
+      --ink-soft:   #ADA9B6;
+      --ink-faint:  #726F7D;
+      --line:       #322F3C;
+      --line-soft:  #2A2733;
+      --matcha:     #99AE80;
+      --matcha-deep:#B4C79B;
+      --matcha-wash:#2A3026;
+      --honey:      #D6AB65;
+      --honey-wash: #34291B;
+      --moon-1:     #3B3948;
+      --moon-2:     #211F2A;
+      --moon-glow:  rgba(154,174,128,.22);
+      --shadow:     0 1px 2px rgba(0,0,0,.3), 0 18px 48px -20px rgba(0,0,0,.6);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  img { max-width: 100%; display: block; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-cjk);
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  .num { font-family: var(--font-serif); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--edge); }
+
+  /* eyebrow / labels */
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: .72rem; font-weight: 600;
+    letter-spacing: .28em; text-transform: uppercase;
+    color: var(--matcha);
+  }
+  .kicker {
+    display: inline-flex; align-items: baseline; gap: .7em;
+    font-family: var(--font-sans);
+    font-size: .74rem; font-weight: 600;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .kicker b { color: var(--matcha); font-family: var(--font-serif); font-size: 1.05rem; font-weight: 400; letter-spacing: 0; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    position: relative; overflow: hidden;
+    padding: clamp(72px, 13vh, 150px) 0 clamp(56px, 9vh, 110px);
+    border-bottom: 1px solid var(--line);
+  }
+  .moon {
+    position: absolute; top: -14%; right: -6%;
+    width: min(58vw, 620px); aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 34%, var(--moon-1) 0%, var(--moon-2) 62%, transparent 72%);
+    box-shadow: 0 0 140px 40px var(--moon-glow);
+    pointer-events: none;
+    animation: rise 1.6s cubic-bezier(.2,.7,.2,1) both;
+  }
+  .moon::after {
+    content:""; position:absolute; inset:0; border-radius:50%;
+    background: radial-gradient(circle at 66% 62%, transparent 52%, rgba(94,115,80,.10) 74%, transparent 78%);
+  }
+  @keyframes rise { from { opacity:0; transform: translateY(28px) scale(.96);} to { opacity:1; transform:none; } }
+  .hero .wrap { position: relative; }
+  .wordmark {
+    font-family: var(--font-serif);
+    letter-spacing: .42em; text-transform: uppercase;
+    font-size: .82rem; color: var(--ink-soft);
+    margin: 0 0 clamp(22px, 5vh, 46px);
+  }
+  .wordmark .zh { font-family: var(--font-cjk); letter-spacing: .3em; margin-right: .5em; color: var(--ink); font-weight: 600; }
+  .hero h1 {
+    font-family: var(--font-cjk); font-weight: 700;
+    font-size: clamp(2.6rem, 8vw, 5.4rem);
+    line-height: 1.04; letter-spacing: .02em;
+    margin: 0; text-wrap: balance;
+    max-width: 15ch;
+  }
+  .hero h1 .accent { color: var(--matcha); }
+  .lede {
+    margin: clamp(20px,4vh,34px) 0 0;
+    font-size: clamp(1.05rem, 2.4vw, 1.4rem);
+    color: var(--ink-soft); font-weight: 400;
+    max-width: 30ch; text-wrap: balance;
+  }
+  .meta-row {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    margin-top: clamp(28px, 5vh, 46px);
+  }
+  .chip {
+    font-family: var(--font-sans); font-size: .82rem; letter-spacing: .04em;
+    padding: 7px 15px; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--card);
+    color: var(--ink-soft); display: inline-flex; align-items: center; gap: .5em;
+  }
+  .chip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--matcha); }
+  .chip .dot.honey { background: var(--honey); }
+
+  /* ---------- SECTION SCAFFOLD ---------- */
+  section { padding: clamp(56px, 10vh, 108px) 0; border-bottom: 1px solid var(--line); }
+  .sec-head { display: flex; align-items: baseline; gap: 1.1em; margin-bottom: clamp(30px, 5vh, 52px); flex-wrap: wrap; }
+  .sec-idx {
+    font-family: var(--font-serif); font-size: 1.02rem; color: var(--matcha);
+    letter-spacing: .05em; font-variant-numeric: tabular-nums;
+  }
+  .sec-title { font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 700; margin: 0; letter-spacing: .01em; }
+  .sec-note { color: var(--ink-soft); max-width: 46ch; margin: .2em 0 0; font-size: 1.02rem; }
+
+  /* data tiles */
+  .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line-soft); border: 1px solid var(--line-soft); border-radius: 16px; overflow: hidden; }
+  .tile { background: var(--card); padding: clamp(20px, 3vw, 30px); display: flex; flex-direction: column; gap: 6px; }
+  .tile .tl { font-size: .82rem; color: var(--ink-soft); letter-spacing: .02em; }
+  .tile .tv { font-size: clamp(1.5rem, 3.2vw, 2.2rem); font-weight: 400; color: var(--ink); }
+  .tile .tv small { font-size: .58em; color: var(--ink-faint); font-family: var(--font-sans); letter-spacing: .02em; }
+  .tile.hot .tv { color: var(--matcha); }
+  .tile .cap { font-size: .78rem; color: var(--ink-faint); margin-top: 2px; }
+
+  /* revenue band */
+  .band {
+    margin-top: 22px; border-radius: 16px; padding: clamp(24px, 4vw, 38px) clamp(24px, 4vw, 44px);
+    background: linear-gradient(105deg, var(--matcha-wash), var(--card));
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+  }
+  .band .lbl { max-width: 34ch; }
+  .band .lbl .t { font-weight: 600; font-size: 1.1rem; }
+  .band .lbl .s { color: var(--ink-soft); font-size: .95rem; }
+  .band .big { font-size: clamp(2.1rem, 6vw, 3.5rem); color: var(--matcha-deep); font-weight: 400; white-space: nowrap; }
+  .band .big small { font-family: var(--font-sans); font-size: .32em; color: var(--ink-faint); letter-spacing: .04em; display:block; text-align:right; }
+
+  /* ---------- PLANS ---------- */
+  .plans { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(18px, 2.5vw, 28px); }
+  .plan {
+    position: relative; background: var(--card); border: 1px solid var(--line);
+    border-radius: 20px; padding: clamp(26px, 3.4vw, 40px);
+    display: flex; flex-direction: column; box-shadow: var(--shadow);
+  }
+  .plan.featured { border-color: var(--matcha); }
+  .plan.featured::before {
+    content: "初期主打"; position: absolute; top: 0; right: clamp(20px, 3vw, 34px);
+    transform: translateY(-50%);
+    font-family: var(--font-sans); font-size: .72rem; font-weight: 600; letter-spacing: .12em;
+    background: var(--matcha); color: #FAFBF6; padding: 5px 14px; border-radius: 999px;
+  }
+  @media (prefers-color-scheme: dark) { .plan.featured::before { color: #14130f; } }
+
+  .plan .pcode { font-family: var(--font-serif); font-size: 1rem; letter-spacing: .2em; color: var(--matcha); text-transform: uppercase; }
+  .plan h3 { font-size: clamp(1.35rem, 2.6vw, 1.7rem); margin: 6px 0 2px; font-weight: 700; }
+  .plan .ptag { color: var(--ink-soft); font-size: .95rem; margin-bottom: 22px; }
+  .price-block { display: flex; gap: 26px; flex-wrap: wrap; padding: 20px 0; border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
+  .price { display: flex; flex-direction: column; }
+  .price .pk { font-family: var(--font-sans); font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); }
+  .price .pv { font-size: clamp(1.9rem, 4.4vw, 2.7rem); color: var(--ink); line-height: 1.1; }
+  .price .pv .cur { font-size: .5em; color: var(--ink-faint); font-family: var(--font-sans); margin-right: .12em; vertical-align: .12em; }
+  .price.solo .pv { color: var(--matcha); }
+  .price .pu { font-size: .78rem; color: var(--ink-faint); }
+
+  .plan ul { list-style: none; margin: 22px 0 0; padding: 0; display: flex; flex-direction: column; gap: 13px; }
+  .plan li { position: relative; padding-left: 26px; font-size: .97rem; color: var(--ink-soft); }
+  .plan li::before {
+    content: ""; position: absolute; left: 4px; top: .62em; width: 8px; height: 8px;
+    border-radius: 50%; border: 1.5px solid var(--matcha);
+  }
+  .plan li b { color: var(--ink); font-weight: 600; }
+  .adv {
+    margin-top: 24px; padding: 16px 18px; border-radius: 12px;
+    background: var(--matcha-wash); font-size: .93rem; color: var(--matcha-deep);
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .adv .k { font-family: var(--font-sans); font-weight: 700; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; padding-top: 2px; }
+
+  /* ---------- OPS CARDS ---------- */
+  .ops { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2vw, 22px); }
+  .op { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: clamp(22px, 2.8vw, 30px); display: flex; flex-direction: column; }
+  .op .icon {
+    width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center;
+    background: var(--matcha-wash); color: var(--matcha-deep); margin-bottom: 16px;
+  }
+  .op.warn .icon { background: var(--honey-wash); color: var(--honey); }
+  .op .icon svg { width: 21px; height: 21px; }
+  .op h4 { margin: 0 0 8px; font-size: 1.12rem; font-weight: 700; }
+  .op p { margin: 0; color: var(--ink-soft); font-size: .95rem; }
+  .op .flag { margin-top: 14px; font-size: .86rem; padding: 10px 13px; border-radius: 9px; background: var(--paper-2); color: var(--ink); border-left: 3px solid var(--honey); }
+  .op .flag b { color: var(--honey); }
+
+  /* rules mini-row */
+  .rules { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 22px; }
+  .rule { display: flex; align-items: center; gap: 16px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 22px; }
+  .rule .rn { font-size: clamp(1.5rem, 3vw, 2rem); color: var(--matcha); white-space: nowrap; }
+  .rule .rn .cur { font-size: .5em; color: var(--ink-faint); font-family: var(--font-sans); }
+  .rule .rt b { display: block; font-size: .98rem; color: var(--ink); }
+  .rule .rt span { font-size: .86rem; color: var(--ink-soft); }
+
+  /* ---------- STRATEGY CLOSER ---------- */
+  .closer { border-bottom: none; }
+  .closer .wrap { position: relative; }
+  .strat {
+    background: linear-gradient(135deg, var(--matcha-deep), var(--matcha));
+    border-radius: 22px; padding: clamp(34px, 6vw, 66px);
+    color: #F6F8F1; position: relative; overflow: hidden;
+  }
+  @media (prefers-color-scheme: dark) { .strat { color: #16180F; } }
+  .strat .moon-s {
+    position: absolute; bottom: -40%; right: -8%; width: 46%; aspect-ratio: 1; border-radius: 50%;
+    background: radial-gradient(circle at 40% 40%, rgba(255,255,255,.22), transparent 68%);
+    pointer-events: none;
+  }
+  .strat .se { font-family: var(--font-sans); letter-spacing: .24em; text-transform: uppercase; font-size: .74rem; font-weight: 600; opacity: .8; }
+  .strat h3 { font-size: clamp(1.7rem, 4.6vw, 2.8rem); margin: 14px 0 0; font-weight: 700; letter-spacing: .01em; max-width: 20ch; text-wrap: balance; position: relative; }
+  .strat p { font-size: clamp(1rem, 2.2vw, 1.2rem); max-width: 44ch; margin: 18px 0 0; opacity: .92; position: relative; }
+  .strat .metrics { display: flex; gap: clamp(24px, 5vw, 60px); margin-top: clamp(26px, 4vw, 40px); flex-wrap: wrap; position: relative; }
+  .strat .metric .mv { font-size: clamp(1.8rem, 4vw, 2.6rem); font-family: var(--font-serif); font-variant-numeric: tabular-nums; }
+  .strat .metric .mv .cur { font-size: .5em; opacity: .7; }
+  .strat .metric .mk { font-size: .82rem; opacity: .82; letter-spacing: .04em; }
+
+  /* footer */
+  footer { padding: clamp(40px, 6vh, 64px) 0; }
+  footer .wrap { display: flex; justify-content: space-between; align-items: baseline; gap: 18px; flex-wrap: wrap; }
+  footer .fm { font-family: var(--font-serif); letter-spacing: .34em; text-transform: uppercase; font-size: .9rem; color: var(--ink); }
+  footer .fm .zh { font-family: var(--font-cjk); letter-spacing: .28em; font-weight: 600; margin-right: .5em; }
+  footer .fn { font-size: .82rem; color: var(--ink-faint); font-family: var(--font-sans); }
+
+  /* reveal */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .moon { animation: none; }
+  }
+
+  /* responsive */
+  @media (max-width: 860px) {
+    .tiles { grid-template-columns: 1fr 1fr; }
+    .plans { grid-template-columns: 1fr; }
+    .ops { grid-template-columns: 1fr; }
+    .rules { grid-template-columns: 1fr; }
+    .band { flex-direction: column; align-items: flex-start; }
+    .band .big small { text-align: left; }
+  }
+  @media (max-width: 460px) {
+    .tiles { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="moon"></div>
+  <div class="wrap">
+    <p class="wordmark"><span class="zh">午月</span>After&nbsp;Moon</p>
+    <h1>包場方案<br><span class="accent">簡報</span></h1>
+    <p class="lede">10 坪的午後，12–16 個座位的<br>專屬時光。</p>
+    <div class="meta-row">
+      <span class="chip"><span class="dot"></span>以 3 小時為基準</span>
+      <span class="chip"><span class="dot honey"></span>平日 ・ 假日雙軌定價</span>
+      <span class="chip"><span class="dot"></span>兩種收費方案</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- 01 客單價 -->
+  <section id="pricing">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-idx">01 / 04</span>
+        <div>
+          <h2 class="sec-title">客單價推算</h2>
+          <p class="sec-note">從菜單結構來看，午月的定價策略相當清晰——以「一杯飲品＋一份甜點」推估滿場潛力。</p>
+        </div>
+      </div>
+
+      <div class="tiles reveal">
+        <div class="tile">
+          <span class="tl">飲品均價</span>
+          <span class="tv num"><small>$</small>140–180</span>
+          <span class="cap">氣泡飲與咖啡類為主力</span>
+        </div>
+        <div class="tile">
+          <span class="tl">甜點均價</span>
+          <span class="tv num"><small>$</small>140–220</span>
+          <span class="cap">抹茶巴斯克為高單價 $280</span>
+        </div>
+        <div class="tile">
+          <span class="tl">單人抹茶巴斯克</span>
+          <span class="tv num"><small>$</small>280</span>
+          <span class="cap">招牌・成本較高且限量</span>
+        </div>
+        <div class="tile hot">
+          <span class="tl">預估客單價</span>
+          <span class="tv num"><small>$</small>300–400</span>
+          <span class="cap">一杯飲品＋一份甜點</span>
+        </div>
+      </div>
+
+      <div class="band reveal">
+        <div class="lbl">
+          <div class="t">滿座 12–16 人</div>
+          <div class="s">單次滿場的理想營業額估算</div>
+        </div>
+        <div class="big num"><small>單場理想營業額</small>$3,600–6,400</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 方案 -->
+  <section id="plans">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-idx">02 / 04</span>
+        <div>
+          <h2 class="sec-title">兩大包場方案</h2>
+          <p class="sec-note">結合空間規模（10 坪、12–16 座位）與現有定價，精算兩種最適合午月的方案。</p>
+        </div>
+      </div>
+
+      <div class="plans">
+        <!-- Plan A -->
+        <article class="plan featured reveal">
+          <span class="pcode">Plan A</span>
+          <h3>總額低消制</h3>
+          <p class="ptag">彈性最高・對客人最沒壓力</p>
+          <div class="price-block">
+            <div class="price">
+              <span class="pk">平日 Weekday</span>
+              <span class="pv num"><span class="cur">$</span>3,500</span>
+              <span class="pu">總點餐金額達標</span>
+            </div>
+            <div class="price">
+              <span class="pk">假日 Weekend</span>
+              <span class="pv num"><span class="cur">$</span>5,500</span>
+              <span class="pu">總點餐金額達標</span>
+            </div>
+          </div>
+          <ul>
+            <li><b>不限人數</b>（最高 16 人），總點餐金額達標即可</li>
+            <li>來 12 人時，假日平均每人約 <b>$450</b></li>
+            <li>點一杯咖啡＋一份巴斯克即可達標，符合正常下午茶預算</li>
+          </ul>
+          <div class="adv"><span class="k">優勢</span><span>對客人來說最沒有壓力，門檻親民，最容易吸引小型社團體驗空間。</span></div>
+        </article>
+
+        <!-- Plan B -->
+        <article class="plan reveal">
+          <span class="pcode">Plan B</span>
+          <h3>人頭套裝制</h3>
+          <p class="ptag">備料最精準・出餐壓力最低</p>
+          <div class="price-block">
+            <div class="price solo">
+              <span class="pk">每人 Per Head</span>
+              <span class="pv num"><span class="cur">$</span>380</span>
+              <span class="pu">低消 10 人起</span>
+            </div>
+          </div>
+          <ul>
+            <li>每人任選 <b>$160 以下飲品 1 杯</b>＋<b>$160 以下甜點 1 份</b></li>
+            <li>如需抹茶巴斯克或高價飲品，<b>可補差額</b></li>
+            <li>主辦人容易向參與者收費，可提前確認品項</li>
+          </ul>
+          <div class="adv"><span class="k">優勢</span><span>非常適合讀書會或手作課程，能提前備料，大幅降低內場出餐壓力。</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 營運巧思 -->
+  <section id="ops">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-idx">03 / 04</span>
+        <div>
+          <h2 class="sec-title">菜單搭配的營運巧思</h2>
+          <p class="sec-note">在包場規則中加入以下設計，同時保護利潤並提升出餐效率。</p>
+        </div>
+      </div>
+
+      <div class="ops">
+        <article class="op warn reveal">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+          </div>
+          <h4>限制高單價品項數量</h4>
+          <p>抹茶巴斯克（$280）成本較高且可能為限量，避免包場當天被單一高價品項點光，影響散客與備料。</p>
+          <div class="flag"><b>$200 以上甜點</b>需提前 <b>3 天</b>預訂並補差價。</div>
+        </article>
+
+        <article class="op reveal">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
+          </div>
+          <h4>包場限定大壺飲品</h4>
+          <p>12–16 人出 16 杯單杯飲品，對單一吧檯手是一大挑戰。以大壺暢飲折抵部分低消，降低出杯負擔。</p>
+          <div class="flag">推薦「<b>伯爵紅茶 / 冷萃黑咖啡</b>」大壺暢飲選項。</div>
+        </article>
+
+        <article class="op reveal">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7Z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7Z"/></svg>
+          </div>
+          <h4>押金與清潔費</h4>
+          <p>明確保障雙方權益，並在方案中先行載明附加費用，避免當天爭議。</p>
+          <div class="rules">
+            <div class="rule">
+              <span class="rn num"><span class="cur">$</span>500</span>
+              <span class="rt"><b>清潔費</b><span>自帶外食（含生日蛋糕）加收</span></span>
+            </div>
+            <div class="rule">
+              <span class="rn num"><span class="cur">$</span>1,500</span>
+              <span class="rt"><b>包場訂金</b><span>建議預收以保障雙方</span></span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 初期策略 -->
+  <section id="strategy" class="closer">
+    <div class="wrap">
+      <div class="strat reveal">
+        <div class="moon-s"></div>
+        <span class="se">Launch Strategy ・ 初期策略建議</span>
+        <h3>剛開幕，先主打「平日 $3,500 低消包場」</h3>
+        <p>這個金額大約只要 10 個人點滿「飲品＋甜點」就能達標，門檻親民，非常容易吸引小型社團前來體驗空間。</p>
+        <div class="metrics">
+          <div class="metric">
+            <div class="mv"><span class="cur">$</span>3,500</div>
+            <div class="mk">平日低消門檻</div>
+          </div>
+          <div class="metric">
+            <div class="mv">≈ 10 人</div>
+            <div class="mk">點滿即達標</div>
+          </div>
+          <div class="metric">
+            <div class="mv">3 小時</div>
+            <div class="mk">包場基準時段</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="fm"><span class="zh">午月</span>After Moon</span>
+    <span class="fn">包場方案企劃・以 3 小時為基準・價格為建議值，實際以現場公告為準</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      els.forEach(function (e) { e.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
+
+</body>
+</html>
